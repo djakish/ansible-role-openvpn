@@ -102,7 +102,6 @@ remote-cert-tls client
 {% if openvpn_enable_management|bool %}
 management {{ openvpn_management_bind }}
 {% if openvpn_management_client_user %}
-management-client-user {{ openvpn_management_client_user }}
 {% endif %}
 {% endif %}
 
