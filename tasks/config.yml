@@ -87,7 +87,7 @@
 - name: Create client configs
   template:
     src: client_ccd.j2
-    dest: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/{{ item.key }}"
+    dest: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/OpenVPN-Client-{{ inventory_hostname[:24] }}-{{ item.key[:24] }}"
     owner: root
     group: root
     mode: 0644
@@ -102,7 +102,7 @@
 
 - name: Delete undeclared configs in client config directory
   file:
-    path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/{{ item }}"
+    path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/OpenVPN-Client-{{ inventory_hostname[:24] }}-{{ item[:24] }}"
     state: absent
   when:
     - item not in openvpn_client_configs.keys() | list
