@@ -100,20 +100,20 @@
   changed_when: false
   when: openvpn_client_config
 
-# - name: Delete undeclared configs in client config directory
-#   file:
-#     path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/OpenVPN-Client-{{ inventory_hostname[:24] }}-{{ item[:24] }}"
-#     state: absent
-#   when:
-#     - item not in openvpn_client_configs.keys() | list
-#     - openvpn_client_config
-#   with_items: "{{ __ccd_contents.stdout_lines | default([]) }}"
+- name: Delete undeclared configs in client config directory
+  file:
+    path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}/OpenVPN-Client-{{ inventory_hostname[:24] }}-{{ item[:24] }}"
+    state: absent
+  when:
+    - item not in openvpn_client_configs.keys() | list
+    - openvpn_client_config
+  with_items: "{{ __ccd_contents.stdout_lines | default([]) }}"
 
-# - name: Delete client config directory
-#   file:
-#     path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}"
-#     state: absent
-#   when: not openvpn_client_config
+- name: Delete client config directory
+  file:
+    path: "{{ openvpn_base_dir }}/{{ openvpn_client_config_dir }}"
+    state: absent
+  when: not openvpn_client_config
 
 - name: Setup openvpn auto-start & start
   service:
